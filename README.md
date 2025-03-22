@@ -22,7 +22,7 @@ And coordinates where we start (column_start, row_end) and whre we end (column_e
 #### For Example:
 
 **C++**:
-> vector<vector<byte>> maze = {
+> std::vector<std::vector<unsigned short>> maze = {
 > {0, 1, 0, 0, 1},
 > {0, 1, 0, 0, 0},
 > {0, 0, 0, 1, 1}
@@ -31,7 +31,7 @@ And coordinates where we start (column_start, row_end) and whre we end (column_e
 > int column_end = 1, row_end = 4;
 
 **Golang**:
-> maze := [][]byte {
+> maze := [][]int {
 > {83, 1, 0, 0, 1},
 > {0, 1, 0, 0, 69},
 > {0, 0, 0, 1, 1}
