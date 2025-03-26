@@ -2,6 +2,7 @@
 #include <queue>
 #include <vector>
 #include <utility> // для std::pair
+#include <stack>
 using namespace std;
 
 vector<pair<unsigned int, unsigned int>> Neighbours(pair<unsigned int, unsigned int> current, vector<vector<unsigned short>> &maze) {
@@ -21,24 +22,24 @@ vector<pair<unsigned int, unsigned int>> Neighbours(pair<unsigned int, unsigned 
 int BFS(pair<unsigned int, unsigned int> start, pair<unsigned int, unsigned int> end, vector<vector<unsigned short>> &maze) {
   if (maze.empty() || maze[0].empty()) {return 0;}
   queue<pair<unsigned int, unsigned int>> queue;
-  vector<vector<pair<unsigned int, unsigned int>>> path;
+  vector<vector<pair<unsigned int, unsigned int>>> parent;
   vector<vector<bool>> visited(maze.size(), vector<bool>(maze[0].size(), false)); // с помощью конструктора передаем в visited значения: для maze.size() столбцов в каждую клетку передаем вектор булевых значений размером maze[0].size() колонок со значениями false;
   queue.push(start);
   visited[start.first][start.second] = true;
 
-  path.resize(maze.size());
-  for (auto &row : path) {row.resize(maze[0].size());}
-  path[start.first][start.second] = start;
+  parent.resize(maze.size());
+  for (auto &row : parent) {row.resize(maze[0].size());}
+  parent[start.first][start.second] = start;
 
   while (!queue.empty()) {
-    pair<unsigned int, unsigned int> current = queue.front();
+    auto current = queue.front();
     queue.pop();
 
     if (current == end) {
       pair<unsigned int, unsigned int> at = end;
       while (at != start) {
         maze[at.first][at.second] = 2;
-        at = path[at.first][at.second];
+        at = parent[at.first][at.second];
       }
       maze[start.first][start.second] = 2;
       return 1;
@@ -48,11 +49,50 @@ int BFS(pair<unsigned int, unsigned int> start, pair<unsigned int, unsigned int>
       if (!visited[neighbour.first][neighbour.second]) {
         visited[neighbour.first][neighbour.second] = true;
         queue.push(neighbour);
-        path[neighbour.first][neighbour.second] = current;
+        parent[neighbour.first][neighbour.second] = current;
       }
     }
   }
   
+  return 0;
+}
+
+int DFS(pair<unsigned int, unsigned int> start, pair<unsigned int, unsigned int> end, vector<std::vector<unsigned short>> &maze) {
+  if (maze.empty() || maze[0].empty()) {return 0;}
+  stack<pair<unsigned int, unsigned int>> dots;
+  vector<vector<bool>> visited(maze.size(), vector<bool>(maze[0].size(), false));
+  vector<vector<pair<unsigned int, unsigned int>>> parent;
+  
+  dots.push(start);
+  visited[start.first][start.second] = true;
+
+  parent.resize(maze.size());
+  for (auto &row : parent) {row.resize(maze[0].size());}
+  parent[start.first][start.second] = start;
+
+  while (!dots.empty()) {
+    auto current = dots.top();
+    dots.pop();
+
+    if (current == end) {
+      auto at = end;
+      while (at != start) {
+        maze[at.first][at.second] = 2;
+        at = parent[at.first][at.second];
+      }
+      maze[start.first][start.second] = 2;
+      return 1;
+    }
+    
+    for (auto neighbour : Neighbours(current, maze)) {
+      if (!visited[neighbour.first][neighbour.second]) {
+        dots.push(neighbour);
+        visited[neighbour.first][neighbour.second] = true;
+        parent[neighbour.first][neighbour.second] = current;
+      }
+    }
+  }
+
   return 0;
 }
 
