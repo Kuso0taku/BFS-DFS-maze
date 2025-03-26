@@ -7,8 +7,8 @@
 
 ## Difference between BFS & DFS
 
- - **BFS** (Breadth-First Search) explores all neighbors at the present depth before moving to nodes at the next depth level
- - **DFS** (Depth-First Search) explores as far as possible along each branch before backtracking.
+ - **BFS** (Breadth-First Search) explores all neighbors at the present depth before moving to nodes at the next depth level (finds the **shortest** way)
+ - **DFS** (Depth-First Search) explores as far as possible along each branch before backtracking (finds **some** way)
 
 ## What's the maze?
 
