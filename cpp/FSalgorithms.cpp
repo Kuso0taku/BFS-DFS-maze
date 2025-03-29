@@ -57,7 +57,7 @@ int BFS(pair<unsigned int, unsigned int> start, pair<unsigned int, unsigned int>
   return 0;
 }
 
-int DFS(pair<unsigned int, unsigned int> start, pair<unsigned int, unsigned int> end, vector<std::vector<unsigned short>> &maze) {
+int DFS(pair<unsigned int, unsigned int> start, pair<unsigned int, unsigned int> end, vector<vector<unsigned short>> &maze) {
   if (maze.empty() || maze[0].empty()) {return 0;}
   stack<pair<unsigned int, unsigned int>> dots;
   vector<vector<bool>> visited(maze.size(), vector<bool>(maze[0].size(), false));
