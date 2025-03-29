@@ -1,4 +1,4 @@
-package FSalgorithms
+package utils
 
 func Neighbours(current [2]uint, maze [][]uint) [][2]uint {
     var neighbours [][2]uint
@@ -9,16 +9,16 @@ func Neighbours(current [2]uint, maze [][]uint) [][2]uint {
     cols := len(maze[0])
     i, j := current[0], current[1]
 
-    if i > 0 && maze[i-1][j] == 0 {
+    if int(i) > 0 && maze[i-1][j] == 0 {
         neighbours = append(neighbours, [2]uint{i - 1, j})
     }
-    if i < rows-1 && maze[i+1][j] == 0 {
+    if int(i) < rows-1 && maze[i+1][j] == 0 {
         neighbours = append(neighbours, [2]uint{i + 1, j})
     }
-    if j > 0 && maze[i][j-1] == 0 {
+    if int(j) > 0 && maze[i][j-1] == 0 {
         neighbours = append(neighbours, [2]uint{i, j - 1})
     }
-    if j < cols-1 && maze[i][j+1] == 0 {
+    if int(j) < cols-1 && maze[i][j+1] == 0 {
         neighbours = append(neighbours, [2]uint{i, j + 1})
     }
     return neighbours
